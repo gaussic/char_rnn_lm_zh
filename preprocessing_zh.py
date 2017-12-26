@@ -9,12 +9,12 @@ class Corpus(object):
     def __init__(self, train_dir, vocab_dir):
         assert os.path.exists(train_dir)
 
-        data = list(open(train_dir, 'r').read().replace('\n', ''))
+        data = list(open(train_dir, 'r', encoding='utf-8').read().replace('\n', ''))
 
         if not os.path.exists(vocab_dir):
             self._build_vocab(data, vocab_dir)
 
-        self.words = open(vocab_dir, 'r').read().strip().split('\n')
+        self.words = open(vocab_dir, 'r', encoding='utf-8').read().strip().split('\n')
         self.word_to_id = dict(zip(self.words, range(len(self.words))))
 
         data = [self.word_to_id[x] for x in data if x in self.word_to_id]
@@ -23,7 +23,7 @@ class Corpus(object):
     def _build_vocab(self, data, vocab_dir):
         count_pairs = Counter(data).most_common()
         words, _ = list(zip(*count_pairs))
-        open(vocab_dir, 'w').write('\n'.join(words) + '\n')
+        open(vocab_dir, 'w', encoding='utf-8').write('\n'.join(words) + '\n')
 
     def to_word(self, ids):
         return list(map(lambda x: self.words[x], ids))
