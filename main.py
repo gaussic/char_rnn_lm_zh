@@ -48,8 +48,8 @@ class Config(object):
     learning_rate = 20  # 初始学习率
 
     num_epochs = 50  # 迭代轮次
-    log_interval = 50  # 每隔多少个批次输出一次状态
-    save_interval = 3  # 每个多少个轮次保存一次参数
+    log_interval = 500  # 每隔多少个批次输出一次状态
+    save_interval = 5  # 每个多少个轮次保存一次参数
 
 
 def batchify(data, bsz):
@@ -89,7 +89,7 @@ def get_time_dif(start_time):
     return timedelta(seconds=int(round(time_dif)))
 
 
-def generate(model, idx2word, word_len=100, temperature=1.0):
+def generate(model, idx2word, word_len=80, temperature=1.0):
     """生成一定数量的文本，temperature结合多项式分布可增添抽样的多样性。"""
     model.eval()
     hidden = model.init_hidden(1)  # batch_size为1
