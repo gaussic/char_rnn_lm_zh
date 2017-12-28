@@ -1,7 +1,7 @@
 #!/usr/bin/python
 # -*- coding: utf-8 -*-
 
-from data_preprocessing import *
+from data import *
 
 train_dir = 'data/sanguoyanyi.txt'
 corpus = Corpus(train_dir)

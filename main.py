@@ -12,7 +12,7 @@ import torch.nn as nn
 from torch.autograd import Variable
 
 from model import RNNModel
-from data_preprocessing import Corpus
+from data import Corpus
 
 train_dir = 'data/sanguoyanyi.txt'
 
