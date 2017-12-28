@@ -15,12 +15,13 @@ from model import RNNModel
 from data_zh import Corpus
 
 train_dir = 'data/sanguoyanyi.txt'
+filename = str(os.path.basename(train_dir).split('.')[0])
 
 # 用于保存模型参数
-save_dir = 'checkpoints/sanguo'
+save_dir = 'checkpoints/' + filename
 if not os.path.exists(save_dir):
     os.makedirs(save_dir)
-model_name = 'sanguo_{}.pt'
+model_name = filename + '_{}.pt'
 
 use_cuda = torch.cuda.is_available()
 
@@ -49,7 +50,7 @@ class Config(object):
 
     num_epochs = 50  # 迭代轮次
     log_interval = 500  # 每隔多少个批次输出一次状态
-    save_interval = 5  # 每个多少个轮次保存一次参数
+    save_interval = 3  # 每个多少个轮次保存一次参数
 
 
 def batchify(data, bsz):
@@ -89,7 +90,7 @@ def get_time_dif(start_time):
     return timedelta(seconds=int(round(time_dif)))
 
 
-def generate(model, idx2word, word_len=80, temperature=1.0):
+def generate(model, idx2word, word_len=200, temperature=1.0):
     """生成一定数量的文本，temperature结合多项式分布可增添抽样的多样性。"""
     model.eval()
     hidden = model.init_hidden(1)  # batch_size为1
@@ -159,7 +160,7 @@ def train():
             if ibatch % config.log_interval == 0 and ibatch > 0:  # 每隔多少个批次输出一次状态
                 cur_loss = total_loss[0] / config.log_interval
                 elapsed = get_time_dif(start_time)
-                print("Epoch {:3d}, {:5d}/{:5d} batches, lr {:02.2f}, loss {:5.2f}, ppl {:8.2f}, time {}".format(
+                print("Epoch {:3d}, {:5d}/{:5d} batches, lr {:2.3f}, loss {:5.2f}, ppl {:8.2f}, time {}".format(
                     epoch, ibatch, train_len // seq_len, lr, cur_loss, math.exp(cur_loss), elapsed))
                 total_loss = 0.0
         lr /= 4.0  # 在一轮迭代完成后，尝试缩小学习率
