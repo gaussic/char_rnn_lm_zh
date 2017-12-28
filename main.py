@@ -12,7 +12,7 @@ import torch.nn as nn
 from torch.autograd import Variable
 
 from model import RNNModel
-from data import Corpus
+from preprocessing_zh import Corpus
 
 train_dir = 'data/sanguoyanyi.txt'
 
@@ -28,7 +28,6 @@ parser = argparse.ArgumentParser(description='PyTorch Chinese Language Model')
 parser.add_argument('--mode', type=str, default='train', help='train or gen.')
 parser.add_argument('--epoch', type=int, default=3, help='the epoch of parameter to be loaded.')
 args = parser.parse_args()
-
 
 
 class Config(object):
@@ -99,7 +98,7 @@ def generate(model, idx2word, word_len=100, temperature=1.0):
         inputs = inputs.cuda()
 
     word_list = []
-    for i in range(word_len):   # 逐字生成
+    for i in range(word_len):  # 逐字生成
         output, hidden = model(inputs, hidden)
         word_weights = output.squeeze().data.div(temperature).exp().cpu()
 
@@ -194,4 +193,3 @@ if __name__ == '__main__':
         generate_flow(args.epoch)
     else:
         raise ValueError("""mode error.""")
-
