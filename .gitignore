@@ -4,3 +4,4 @@ __pycache__
 *.xml
 .idea
 *.pt
+*.pyc
