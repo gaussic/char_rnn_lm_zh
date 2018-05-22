@@ -2,7 +2,7 @@
 
 基于PyTorch官方[word_language_model](https://github.com/pytorch/examples/tree/master/word_language_model)实现中文字符级语言模型。
 
-关于修改的部分和一些数据处理与模型的细节，可在[PYTORCH中文字符级语言模型](http://gaussic.top/2017/12/28/pytorch-language-model-zh/)中找到。
+关于修改的部分和一些数据处理与模型的细节，可在[PYTORCH中文字符级语言模型](http://gaussic.com/2017/12/28/pytorch-language-model-zh/)中找到。
 
 项目中的代码已经做了大量的注释，方便理解。
 
